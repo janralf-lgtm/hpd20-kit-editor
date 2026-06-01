@@ -20,7 +20,8 @@ export function InstrumentPicker({
     const s = q.trim().toLowerCase();
     if (!s) return ALL; // all 850 instruments, list is scrollable
     return ALL.filter(
-      (i) => i.name.toLowerCase().includes(s) || String(i.num).includes(s),
+      // search by name or by the device-facing (1-based) number
+      (i) => i.name.toLowerCase().includes(s) || String(i.num + 1).includes(s),
     );
   }, [q]);
 
@@ -46,7 +47,7 @@ export function InstrumentPicker({
                 onClose();
               }}
             >
-              <span className="picker-num">{i.num}</span>
+              <span className="picker-num">{i.num + 1}</span>
               {i.name}
             </li>
           ))}

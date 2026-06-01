@@ -83,7 +83,7 @@ export function PadEditor({
       <label className="field">
         <span>Instrument {layer === 0 ? "A" : "B"}</span>
         <button className="inst-btn" onClick={() => setPicking(true)}>
-          <b>{pad.getPatch(layer)}</b> {pad.getInstrumentName(layer)}
+          <b>{pad.getPatch(layer) + 1}</b> {pad.getInstrumentName(layer)}
         </button>
       </label>
 
