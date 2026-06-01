@@ -81,7 +81,7 @@ export default function App() {
     return (
       <div className="landing">
         <div className="landing-card">
-          <h1>HPD-20 Kit-Editor</h1>
+          <h1>TriggerMap</h1>
           <p>
             Lade eine Backup-Datei deines Roland HPD-20 (
             <code>Roland/HPD-20/Backup/BKUP-XXX.HS0</code> vom USB-Stick).
@@ -105,7 +105,7 @@ export default function App() {
   return (
     <div className="app">
       <header className="topbar">
-        <strong>HPD-20 Kit-Editor</strong>
+        <strong>TriggerMap</strong>
         <span className="file-name">{fileName}</span>
         {checksum !== null && (
           <span className={`chk ${checksum ? "ok" : "bad"}`}>

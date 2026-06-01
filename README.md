@@ -1,7 +1,7 @@
-# HPD-20 Kit-Editor
+# TriggerMap
 
-Ein freier Editor zum Neu-Strukturieren der Kits & Sets des **Roland HPD-20
-"HandSonic"**. Das Gerät lässt sich nicht über MIDI editieren – Bearbeitung
+**TriggerMap** ist ein freier Editor zum Neu-Strukturieren der Kits & Sets des
+**Roland HPD-20 "HandSonic"**. Das Gerät lässt sich nicht über MIDI editieren – Bearbeitung
 erfolgt über die Backup-Datei (`BKUP-XXX.HS0`), die das HPD-20 selbst auf einen
 USB-Stick schreibt. Dieser Editor liest, verändert und schreibt diese Datei
 **komplett lokal** (nichts wird hochgeladen).

@@ -1,6 +1,6 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "HPD-20 Kit-Editor",
+  "productName": "TriggerMap",
   "version": "0.1.0",
   "identifier": "de.digitalsmartsolutions.hpd20editor",
   "build": {
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "HPD-20 Kit-Editor",
+        "title": "TriggerMap — Editor für Roland HPD-20",
         "width": 1320,
         "height": 880,
         "minWidth": 1000,

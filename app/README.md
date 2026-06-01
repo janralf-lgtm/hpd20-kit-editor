@@ -1,4 +1,4 @@
-# HPD-20 Kit-Editor
+# TriggerMap (HPD-20 Kit-Editor)
 
 Lokale Web-App zum Neu-Strukturieren der Sets eines **Roland HPD-20 "HandSonic"**.
 Das HPD-20 lässt sich nicht über MIDI editieren – der einzige Weg führt über die
