@@ -49,12 +49,16 @@ export function PadSurface({
           const sel = selectedPad === p.index;
           const cls = `zone ${sel ? "zone-sel" : ""}`;
           const { a, b, empty } = labelFor(p.index);
-          const aLines = nameLines(a);
-          const lines: { text: string; b?: boolean }[] = aLines.map((t) => ({
-            text: t,
-          }));
-          if (b) lines.push({ text: "＋ " + trunc(b), b: true });
-          const startDy = -((lines.length - 1) * 12);
+          const isS = p.index >= 5 && p.index <= 12; // small sub-pads => thin ring
+
+          // Small S-pads: one short, single-line label (band is narrow).
+          // Large M-pads: A name (wrapped) plus the B layer line.
+          const lines: { text: string; b?: boolean }[] = isS
+            ? [{ text: empty ? a : trunc(a, 11) }]
+            : nameLines(a).map((t) => ({ text: t }));
+          if (!isS && b) lines.push({ text: "＋ " + trunc(b), b: true });
+          const dyStep = isS ? 16 : 24;
+          const startDy = -((lines.length - 1) * (isS ? 8 : 12));
           return (
             <g
               key={p.index}
@@ -67,7 +71,7 @@ export function PadSurface({
                 <circle className={cls} cx={p.cx} cy={p.cy} r={p.r} />
               )}
               <text
-                className={`zone-label ${empty ? "zone-empty" : ""}`}
+                className={`zone-label ${isS ? "zone-label-s" : ""} ${empty ? "zone-empty" : ""}`}
                 x={p.labelX}
                 y={p.labelY}
                 textAnchor="middle"
@@ -76,7 +80,7 @@ export function PadSurface({
                   <tspan
                     key={i}
                     x={p.labelX}
-                    dy={i === 0 ? startDy : 24}
+                    dy={i === 0 ? startDy : dyStep}
                     className={ln.b ? "layer-b" : ""}
                   >
                     {ln.text}

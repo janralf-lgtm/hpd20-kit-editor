@@ -120,6 +120,7 @@ input[type="text"], input:not([type]), .kit-filter, .kit-name-input, .kit-sub-in
   stroke-width: 4px;
 }
 .zone-label .layer-b { fill: #ffb877; font-size: 18px; font-weight: 500; }
+.zone-label-s { font-size: 15px; font-weight: 600; }
 .zone-empty { fill: #9aa3b4; font-weight: 700; opacity: .85; }
 
 .externals { width: min(620px, 100%); }

@@ -10,10 +10,12 @@
 export const VIEW_W = 1300;
 export const VIEW_H = 1160;
 
-const CENTER = { x: 650, y: 700 };
-const R_M5 = 66; // centre circle radius
-const R_INNER = 300; // outer edge of the M1-M4 quarter discs
-const R_OUTER = 418; // outer edge of the S ring
+// Measured from the device artwork (silver-rim + stroke detection):
+// dial centre ≈ (647, 654), playing-surface edge ≈ 380, M/S boundary ≈ 337.
+const CENTER = { x: 647, y: 654 };
+const R_M5 = 72; // centre circle radius
+const R_INNER = 337; // outer edge of the M1-M4 quarter discs / inner edge of S ring
+const R_OUTER = 380; // outer edge of the S ring (= playing-surface edge)
 
 function polar(r: number, deg: number): [number, number] {
   const a = (deg * Math.PI) / 180;
