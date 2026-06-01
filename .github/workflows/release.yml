@@ -1,0 +1,71 @@
+name: Release
+
+# Baut die Desktop-App für Windows und macOS, sobald ein Versions-Tag (vX.Y.Z)
+# gepusht wird, und legt sie als Entwurfs-Release mit den Installern ab.
+# Lässt sich auch manuell über "Run workflow" starten.
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-14 # Apple Silicon (.dmg, aarch64)
+            args: "--target aarch64-apple-darwin"
+            rust_target: aarch64-apple-darwin
+          - platform: macos-13 # Intel (.dmg, x86_64)
+            args: "--target x86_64-apple-darwin"
+            rust_target: x86_64-apple-darwin
+          - platform: windows-latest # .msi + .exe
+            args: ""
+            rust_target: ""
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Rust einrichten
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.rust_target }}
+
+      - name: Rust-Cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./app/src-tauri -> target"
+
+      - name: Frontend-Abhängigkeiten installieren
+        working-directory: app
+        run: npm ci
+
+      - name: Bauen & Release-Entwurf erstellen
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Optionale macOS-Signierung/Notarisierung: erst aktiv, wenn diese
+          # Secrets im Repo hinterlegt sind – sonst entsteht ein unsigniertes Build.
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        with:
+          projectPath: app
+          tagName: ${{ github.ref_name }}
+          releaseName: "HPD-20 Kit-Editor ${{ github.ref_name }}"
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}
