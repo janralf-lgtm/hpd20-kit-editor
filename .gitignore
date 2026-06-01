@@ -1,0 +1,25 @@
+# Dependencies / build output
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+
+# Rust / Tauri
+app/src-tauri/target/
+app/src-tauri/gen/
+
+# OS / editor cruft
+.DS_Store
+*.log
+
+# Secrets
+.env
+.env.*
+
+# Claude Code session state (never commit)
+.claude/
+
+# Device backups & personal data (real HPD-20 dumps and exported kits)
+Roland/
+*.HS0
+*.kit
