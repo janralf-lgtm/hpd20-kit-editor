@@ -31,9 +31,22 @@ In der Desktop-App gibt es **native Öffnen-/Speichern-Dialoge** (Lesen/Schreibe
 über Rust, daher auch USB-Sticks unter `/Volumes/…` ohne Scope-Konfiguration).
 Im Browser dienen Datei-Auswahl bzw. Download als Fallback.
 
-> Hinweis: Das `.dmg` ist nicht signiert/notarisiert. Beim Weitergeben an andere
-> Macs muss die App per Rechtsklick → „Öffnen" freigegeben werden. Für eine
-> reibungslose Verteilung wäre Apple-Signing/Notarisierung nötig.
+### Signieren & Notarisieren (macOS)
+
+Für reibungslose Verteilung wird die App mit der Developer-ID signiert und bei
+Apple notarisiert. Credentials kommen aus einer gitignorierten `.env.notarize`
+(Vorlage: `notarize.env.example`):
+
+```bash
+cd app
+cp notarize.env.example .env.notarize   # APPLE_ID + APPLE_PASSWORD eintragen
+set -a && source .env.notarize && set +a
+npm run tauri build                      # signiert, notarisiert, stapled
+```
+
+`APPLE_PASSWORD` ist ein **App-spezifisches Passwort** von appleid.apple.com.
+Ohne diese Variablen entsteht ein unsigniertes Build (Gatekeeper-Warnung beim
+Weitergeben). Für CI gehören die Werte in GitHub Secrets.
 
 1. „Backup-Datei öffnen…" → deine `BKUP-XXX.HS0` wählen.
 2. Links Kits per Drag-&-Drop umsortieren / auswählen, Namen oben bearbeiten.
