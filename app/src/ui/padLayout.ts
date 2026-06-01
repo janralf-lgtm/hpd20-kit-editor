@@ -47,9 +47,11 @@ export interface SurfacePad {
   labelY: number;
 }
 
-function quarter(index: number, d1: number, d2: number): SurfacePad {
-  const [labelX, labelY] = centroid(R_M5, R_INNER, d1, d2);
-  return { index, shape: "polygon", points: sector(R_M5, R_INNER, d1, d2), labelX, labelY };
+// rOut defaults to R_INNER (upper M3/M4 quarters stop where the S ring begins);
+// the lower M1/M2 quarters pass rOut=R_OUTER since there is no S ring below.
+function quarter(index: number, d1: number, d2: number, rOut: number = R_INNER): SurfacePad {
+  const [labelX, labelY] = centroid(R_M5, rOut, d1, d2);
+  return { index, shape: "polygon", points: sector(R_M5, rOut, d1, d2), labelX, labelY };
 }
 
 function ringSeg(index: number, d1: number, d2: number): SurfacePad {
@@ -65,10 +67,10 @@ const sPads: SurfacePad[] = Array.from({ length: 8 }, (_, i) => {
 });
 
 export const SURFACE_PADS: SurfacePad[] = [
-  quarter(0, 180, 270), // M1 bottom-left
-  quarter(1, 270, 360), // M2 bottom-right
-  quarter(2, 90, 180), // M3 top-left
-  quarter(3, 0, 90), // M4 top-right
+  quarter(0, 180, 270, R_OUTER), // M1 bottom-left (full radius, no S ring below)
+  quarter(1, 270, 360, R_OUTER), // M2 bottom-right (full radius)
+  quarter(2, 90, 180), // M3 top-left (stops at S ring)
+  quarter(3, 0, 90), // M4 top-right (stops at S ring)
   {
     index: 4,
     shape: "circle",
