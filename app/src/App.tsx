@@ -90,6 +90,11 @@ export default function App() {
           <button className="primary" onClick={openFile}>
             Backup-Datei öffnen…
           </button>
+          <p className="disclaimer">
+            Inoffizielles Projekt – keine Verbindung zu bzw. Unterstützung durch
+            Roland. „Roland", „HandSonic" und „HPD-20" sind Marken ihrer
+            jeweiligen Inhaber.
+          </p>
         </div>
       </div>
     );

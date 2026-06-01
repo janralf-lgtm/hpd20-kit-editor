@@ -1,7 +1,9 @@
 {
-  "name": "app",
+  "name": "hpd20-kit-editor",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "license": "GPL-3.0-or-later",
+  "description": "Editor zum Neu-Strukturieren der Kits & Sets des Roland HPD-20 HandSonic (inoffiziell)",
   "type": "module",
   "scripts": {
     "dev": "vite",

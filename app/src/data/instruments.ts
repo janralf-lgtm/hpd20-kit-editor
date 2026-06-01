@@ -1,4 +1,6 @@
-// Auto-generated from reference tool 'hpd-20' (instrumentname.py). Do not hand-edit.
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Ported from github.com/scjurgen/hpd-20 (Jürgen Schwietering, GPL-3.0) –
+// auto-generated from its instrumentname.py. Do not hand-edit the data below.
 // index -> { pitch (cents base), name }
 export interface Instrument { pitch: number; name: string }
 export const INSTRUMENTS: Record<number, Instrument> = {

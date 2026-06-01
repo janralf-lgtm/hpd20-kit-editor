@@ -46,6 +46,7 @@ input[type="text"], input:not([type]), .kit-filter, .kit-name-input, .kit-sub-in
 .landing-card { max-width: 520px; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 32px; }
 .landing-card h1 { margin-top: 0; }
 .landing-card code { background: var(--panel2); padding: 1px 5px; border-radius: 4px; }
+.disclaimer { font-size: 11px; color: var(--muted); margin: 18px 0 0; line-height: 1.4; }
 
 /* ---------- Layout ---------- */
 .app { display: flex; flex-direction: column; height: 100vh; }

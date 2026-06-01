@@ -1,4 +1,5 @@
-// Ported from reference tool 'hpd-20' (scales.py).
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Ported from github.com/scjurgen/hpd-20 (Jürgen Schwietering, GPL-3.0) – scales.py.
 // Melodic instrument sets: name -> [firstInstrumentIndex, lastInstrumentIndex]
 import { getInstrumentPitch } from "./instruments";
 
