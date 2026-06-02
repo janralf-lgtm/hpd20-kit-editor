@@ -4,7 +4,7 @@
 // just the SHA-256 hashes of accepted codes; the plaintext code is delivered to
 // donors via Ko-fi's automatic thank-you message.
 
-export const KOFI_URL = "https://ko-fi.com/triggermap";
+export const KOFI_URL = "https://ko-fi.com/janstuerkat";
 
 const STORAGE_KEY = "triggermap-supporter";
 
