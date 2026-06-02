@@ -1,6 +1,6 @@
 [package]
 name = "app"
-version = "0.1.0"
+version = "0.1.1"
 description = "HPD-20 Kit-Editor"
 authors = ["Jan Sturkat"]
 license = "GPL-3.0-or-later"
