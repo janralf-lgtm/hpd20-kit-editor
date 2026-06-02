@@ -97,6 +97,14 @@ const de: Dict = {
   "print.empty": "–",
 
   "lang.label": "Sprache",
+
+  "support.hint": "TriggerMap ist gratis & quelloffen – unterstütze die Entwicklung.",
+  "support.cta": "Unterstützen",
+  "support.redeem": "Code einlösen",
+  "support.enterCode": "Supporter-Code eingeben (nach der Spende per Ko-fi erhalten):",
+  "support.invalid": "Code ungültig.",
+  "support.thanks": "Danke für deine Unterstützung! ☕",
+  "support.badge": "Supporter ☕",
 };
 
 const en: Dict = {
@@ -177,6 +185,14 @@ const en: Dict = {
   "print.empty": "–",
 
   "lang.label": "Language",
+
+  "support.hint": "TriggerMap is free & open source — support its development.",
+  "support.cta": "Support",
+  "support.redeem": "Redeem code",
+  "support.enterCode": "Enter your supporter code (sent via Ko-fi after donating):",
+  "support.invalid": "Invalid code.",
+  "support.thanks": "Thanks for your support! ☕",
+  "support.badge": "Supporter ☕",
 };
 
 const es: Dict = {
@@ -257,6 +273,14 @@ const es: Dict = {
   "print.empty": "–",
 
   "lang.label": "Idioma",
+
+  "support.hint": "TriggerMap es gratis y de código abierto — apoya su desarrollo.",
+  "support.cta": "Apoyar",
+  "support.redeem": "Canjear código",
+  "support.enterCode": "Introduce tu código de apoyo (enviado por Ko-fi tras donar):",
+  "support.invalid": "Código no válido.",
+  "support.thanks": "¡Gracias por tu apoyo! ☕",
+  "support.badge": "Supporter ☕",
 };
 
 const fr: Dict = {
@@ -337,6 +361,14 @@ const fr: Dict = {
   "print.empty": "–",
 
   "lang.label": "Langue",
+
+  "support.hint": "TriggerMap est gratuit et open source — soutenez son développement.",
+  "support.cta": "Soutenir",
+  "support.redeem": "Saisir le code",
+  "support.enterCode": "Saisissez votre code de soutien (reçu via Ko-fi après le don) :",
+  "support.invalid": "Code invalide.",
+  "support.thanks": "Merci pour votre soutien ! ☕",
+  "support.badge": "Supporter ☕",
 };
 
 const DICTS: Record<Lang, Dict> = { de, en, es, fr };

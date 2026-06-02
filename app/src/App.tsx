@@ -6,8 +6,10 @@ import { PadEditor } from "./ui/PadEditor";
 import { PrintView } from "./ui/PrintView";
 import { ScaleDialog } from "./ui/ScaleDialog";
 import { LanguageSwitcher } from "./ui/LanguageSwitcher";
+import { SupporterBar } from "./ui/SupporterBar";
 import { applyScaleToKit } from "./codec/scaleApply";
 import { openBinaryFile, saveBinaryFile } from "./platform/files";
+import { isSupporter } from "./supporter";
 import { useT } from "./i18n";
 import "./App.css";
 
@@ -26,6 +28,7 @@ export default function App() {
   const [printing, setPrinting] = useState(false);
   const [checksum, setChecksum] = useState<boolean | null>(null);
   const [scaleOpen, setScaleOpen] = useState(false);
+  const [supporter, setSupporter] = useState(isSupporter());
 
   const bump = useCallback(() => {
     setRev((r) => r + 1);
@@ -92,6 +95,9 @@ export default function App() {
           <button className="primary" onClick={openFile}>
             {t("landing.open")}
           </button>
+          {!supporter && (
+            <SupporterBar onRedeemed={() => setSupporter(true)} />
+          )}
           <p className="disclaimer">{t("disclaimer")}</p>
         </div>
       </div>
@@ -111,6 +117,11 @@ export default function App() {
           </span>
         )}
         <span className="spacer" />
+        {supporter && (
+          <span className="supporter-badge" title={t("support.thanks")}>
+            {t("support.badge")}
+          </span>
+        )}
         <LanguageSwitcher />
         <button onClick={() => setPrinting((p) => !p)}>
           {printing ? t("top.editor") : t("top.print")}
@@ -123,6 +134,8 @@ export default function App() {
       </header>
 
       <div className="safety">{tc("safety")}</div>
+
+      {!supporter && <SupporterBar onRedeemed={() => setSupporter(true)} />}
 
       {printing ? (
         <PrintView backup={backup} />

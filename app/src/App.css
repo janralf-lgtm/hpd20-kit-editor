@@ -67,6 +67,31 @@ input[type="text"], input:not([type]), .kit-filter, .kit-name-input, .kit-sub-in
 .chk.bad { background: rgba(255,85,85,.15); color: var(--bad); }
 
 .safety { background: rgba(255,122,26,.1); color: #ffce9e; font-size: 12.5px; padding: 7px 16px; border-bottom: 1px solid var(--line); }
+
+/* ---------- Supporter / donation ---------- */
+.support-bar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 7px 16px; background: rgba(54,194,117,.10);
+  border-bottom: 1px solid var(--line); font-size: 12.5px;
+}
+.support-text { color: var(--text); }
+.support-bar .support-cta { background: var(--ok); color: #07210f; border-color: var(--ok); font-weight: 600; padding: 4px 12px; }
+.support-bar .support-redeem { padding: 4px 10px; }
+.supporter-badge {
+  font-size: 12px; padding: 3px 9px; border-radius: 20px;
+  background: rgba(54,194,117,.18); color: var(--ok); white-space: nowrap;
+}
+/* On the landing card the bar sits inside the card */
+.landing-card .support-bar { border: 1px solid var(--line); border-radius: 10px; margin: 14px 0 0; }
+
+.redeem-dialog {
+  width: 380px; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 10px;
+}
+.redeem-dialog label { font-size: 13px; color: var(--muted); }
+.redeem-dialog input { background: var(--panel2); border: 1px solid var(--line); color: var(--text); border-radius: 6px; padding: 8px 10px; font-size: 14px; }
+.redeem-err { color: var(--bad); font-size: 12.5px; }
+.redeem-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
 .safety code { background: rgba(0,0,0,.25); padding: 1px 5px; border-radius: 4px; }
 
 .main { flex: 1; display: grid; grid-template-columns: 300px 1fr 300px; min-height: 0; }
