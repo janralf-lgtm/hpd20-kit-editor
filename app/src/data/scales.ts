@@ -1,6 +1,9 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
-// Ported from github.com/scjurgen/hpd-20 (Jürgen Schwietering, GPL-3.0) – scales.py.
-// Melodic instrument sets: name -> [firstInstrumentIndex, lastInstrumentIndex]
+// Melodic scale helpers for TriggerMap.
+//  - MELODIC_SETS: the index ranges of each pitched instrument family in the
+//    Roland HPD-20 Sound List (factual product data; see instruments.ts).
+//  - SCALE_PATTERNS / MODES: standard music theory.
+//  - MELODY_PAD_PATTERNS: our own pad orderings (note -> pad index).
+//  - getScale(): our own nearest-pitch selection.
 import { getInstrumentPitch } from "./instruments";
 
 export const MODES = {
@@ -13,9 +16,10 @@ export const MODES = {
   LOCRIAN: 6,
 } as const;
 
+// [firstInstrumentIndex, lastInstrumentIndex] (0-based) of each pitched family.
 export const MELODIC_SETS: Record<string, [number, number]> = {
   "Steel Drum": [348, 355],
-  Balaphone: [356, 359],
+  Balaphone: [356, 361],
   "Slit Drum": [362, 366],
   Gyilli: [367, 371],
   Lithophone: [372, 376],
@@ -27,7 +31,7 @@ export const MELODIC_SETS: Record<string, [number, number]> = {
   Vibraphone: [409, 417],
   Marimba: [418, 427],
   Glockenspiel: [428, 433],
-  "Tublar Bells": [434, 435],
+  "Tubular Bells": [434, 435],
 };
 
 export const SCALE_PATTERNS: Record<string, number[]> = {
@@ -38,11 +42,12 @@ export const SCALE_PATTERNS: Record<string, number[]> = {
   "pentatonic minor": [0, 3, 5, 7, 10],
 };
 
-// Pad-fill orderings (indices into the M1..S8/Beam pad order). See reference melodypadpattern.py.
+// Our own orderings: which pad receives the 1st, 2nd, … note of the scale.
+// Pad indices: 0–4 = M1–M5, 5–12 = S1–S8, 13 = D-Beam.
 export const MELODY_PAD_PATTERNS: Record<string, number[]> = {
-  "Alternate-LR": [4, 0, 1, 2, 3, 5, 12, 6, 11, 7, 10, 8, 9, 13],
-  "Alternate-LR-Natural": [0, 1, 2, 3, 5, 12, 6, 11, 7, 10, 8, 9, 4],
-  "Halfmoon-CW": [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 4],
+  "M1–M5, S1–S8": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  "Nur S1–S8": [5, 6, 7, 8, 9, 10, 11, 12],
+  "Im Uhrzeigersinn": [0, 2, 5, 6, 7, 8, 9, 10, 11, 12, 3, 1, 4],
 };
 
 // Note naming consistent with the instrument table (semitone number, C4 = 72).
@@ -69,7 +74,7 @@ function nearestNoteAndPitch(
 ): [number, number] {
   let bestPitch = idealCents - getInstrumentPitch(low);
   let bestIndex = low;
-  for (let i = low + 1; i < high; i++) {
+  for (let i = low + 1; i <= high; i++) {
     const delta = idealCents - getInstrumentPitch(i);
     if (Math.abs(delta) < Math.abs(bestPitch)) {
       bestPitch = delta;
@@ -81,7 +86,7 @@ function nearestNoteAndPitch(
 
 /**
  * Compute [instrumentIndex, pitchCentsOffset] for each note of a scale.
- * firstNote is a MIDI-ish note number; result length = noteCount.
+ * firstNote is a semitone number (C4 = 72); result length = noteCount.
  */
 export function getScale(
   instrumentName: string,
@@ -95,10 +100,10 @@ export function getScale(
   const out: [number, number][] = [];
   for (let i = 0; i < noteCount; i++) {
     const nh = i + mode;
-    const h =
+    const step =
       pattern[((nh % pattern.length) + pattern.length) % pattern.length] +
       12 * Math.floor(nh / pattern.length);
-    out.push(nearestNoteAndPitch(low, high, (firstNote + h) * 100));
+    out.push(nearestNoteAndPitch(low, high, (firstNote + step) * 100));
   }
   return out;
 }

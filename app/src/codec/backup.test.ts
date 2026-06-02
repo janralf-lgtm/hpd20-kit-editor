@@ -113,7 +113,7 @@ realDescribe("Backup against real BKUP-001.HS0", () => {
       scaleName: "major",
       mode: 0,
       firstNote: 72, // C4
-      patternName: "Halfmoon-CW",
+      patternName: "M1–M5, S1–S8",
     };
     const steps = applyScaleToKit(bk, 10, opts);
     const [low, high] = MELODIC_SETS["Vibraphone"];
@@ -138,7 +138,7 @@ realDescribe("Backup against real BKUP-001.HS0", () => {
       scaleName: "pentatonic minor",
       mode: 0,
       firstNote: 60,
-      patternName: "Alternate-LR",
+      patternName: "Im Uhrzeigersinn",
     });
     expect(steps.length).toBeGreaterThan(0);
   });

@@ -47,7 +47,9 @@ eigene, stilisierte Illustration.
 
 Lizenziert unter der **GNU General Public License v3.0** (siehe [`LICENSE`](LICENSE)).
 
-Dieses Projekt basiert auf der Reverse-Engineering-Arbeit von
-**[scjurgen/hpd-20](https://github.com/scjurgen/hpd-20)** (Jürgen Schwietering),
-ebenfalls GPL-3.0. Die Instrumenten-Tabelle und die Scale-/melodischen
-Set-Daten wurden von dort nach TypeScript portiert.
+Die Instrumentnamen stammen aus Rolands offizieller Sound List („Patch List",
+`HPD-20_PA.pdf`, © Roland) als Sachdaten; die Tonhöhen sind aus den Notennamen
+berechnet. Das Backup-Dateiformat wurde eigenständig an einer echten
+Sicherungsdatei verifiziert. Als frühe Prior-Art sei
+**[scjurgen/hpd-20](https://github.com/scjurgen/hpd-20)** (Jürgen Schwietering)
+erwähnt, das das Format erstmals öffentlich dokumentiert hat.

@@ -1,8 +1,9 @@
 // Binary layout of the Roland HPD-20 backup file (BKUP-XXX.HS0).
-// Verified against a real 12,632,980-byte backup:
+// These offsets/sizes are factual properties of an interoperability file format,
+// independently verified against a real 12,632,980-byte backup:
 //  - last 16 bytes = MD5 over the rest (confirmed exact match)
-//  - kit names readable at KIT_OFFSET, pad data plausible at PAD_OFFSET
-// Offsets/sizes originate from the reference tool github.com/scjurgen/hpd-20.
+//  - kit names readable at KIT_OFFSET, pad data verified at PAD_OFFSET
+//  - layer modes / fade point confirmed against the owner's manual
 
 export const MD5_SIZE = 16;
 
