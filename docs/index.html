@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TriggerMap — Editor for the Roland HPD-20 HandSonic</title>
+    <meta
+      name="description"
+      content="TriggerMap is a free, open-source editor for the Roland HPD-20 HandSonic. Reorder kits, edit pads & instruments, lay scales on melodic pads — all locally, via the device's backup file."
+    />
+    <meta property="og:title" content="TriggerMap — Editor for the Roland HPD-20" />
+    <meta
+      property="og:description"
+      content="Free & open-source kit editor for the Roland HPD-20 HandSonic. macOS & Windows."
+    />
+    <meta property="og:image" content="./triggermap-icon.png" />
+    <link rel="icon" href="./triggermap-icon.png" />
+    <style>
+      :root {
+        --bg: #16181d; --panel: #1e2128; --panel2: #262a33; --line: #333845;
+        --text: #e6e8ee; --muted: #8b92a3; --accent: #ff7a1a; --ok: #36c275; --blue: #3a7afe;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; background: var(--bg); color: var(--text);
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.6;
+      }
+      a { color: var(--accent); }
+      .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+      header { text-align: center; padding: 64px 20px 32px; }
+      header img.mark { width: 132px; height: 132px; border-radius: 28px; }
+      h1 { font-size: 40px; margin: 18px 0 6px; }
+      .tagline { color: var(--muted); font-size: 18px; margin: 0 0 8px; }
+      .lead { max-width: 640px; margin: 18px auto 0; color: #cfd3dd; }
+      .btn {
+        display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+        padding: 11px 18px; border-radius: 10px; border: 1px solid var(--line);
+        background: var(--panel2); color: var(--text); font-size: 14px; font-weight: 600;
+      }
+      .btn:hover { border-color: var(--accent); }
+      .btn-primary { background: var(--accent); color: #1a1206; border-color: var(--accent); }
+      .btn-coffee { background: var(--ok); color: #07210f; border-color: var(--ok); }
+      section { padding: 28px 0; border-top: 1px solid var(--line); }
+      h2 { font-size: 22px; }
+      .downloads { display: flex; flex-wrap: wrap; gap: 10px; }
+      .dl-group { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; flex: 1 1 260px; }
+      .dl-group h3 { margin: 0 0 10px; font-size: 15px; }
+      .dl-group .btn { width: 100%; justify-content: center; margin-bottom: 8px; }
+      ul.features { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+      ul.features li::before { content: "🥁 "; }
+      .device { width: 100%; max-width: 520px; display: block; margin: 8px auto 0; }
+      .note { color: var(--muted); font-size: 13px; }
+      footer { padding: 32px 0 56px; color: var(--muted); font-size: 13px; text-align: center; }
+      .cta-row { margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+      @media (max-width: 560px) { ul.features { grid-template-columns: 1fr; } h1 { font-size: 32px; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <img class="mark" src="./triggermap-icon.png" alt="TriggerMap" />
+        <h1>TriggerMap</h1>
+        <p class="tagline">Editor for the Roland HPD-20 HandSonic</p>
+        <p class="lead">
+          The HPD-20 can't be configured over MIDI and there's no current editor
+          software. <strong>TriggerMap</strong> edits the device's own backup file
+          — reorder kits, change pads &amp; instruments, lay musical scales on the
+          melodic pads, export/import kits, print an overview. Everything runs
+          <strong>locally</strong>; nothing is uploaded. Free &amp; open source.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#downloads">↓ Download</a>
+          <a class="btn btn-coffee" href="https://ko-fi.com/triggermap">☕ Support on Ko-fi</a>
+          <a class="btn" href="https://github.com/janralf-lgtm/hpd20-kit-editor">View on GitHub</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <section id="downloads">
+        <h2>Download</h2>
+        <p class="note">Latest release: <strong>v0.1.1</strong>. macOS builds are signed &amp; notarized. The Windows installer is unsigned — on first run choose “More info → Run anyway”.</p>
+        <div class="downloads">
+          <div class="dl-group">
+            <h3>🍏 macOS</h3>
+            <a class="btn" href="https://github.com/janralf-lgtm/hpd20-kit-editor/releases/download/v0.1.1/TriggerMap_0.1.1_aarch64.dmg">Apple Silicon (.dmg)</a>
+            <a class="btn" href="https://github.com/janralf-lgtm/hpd20-kit-editor/releases/download/v0.1.1/TriggerMap_0.1.1_x64.dmg">Intel (.dmg)</a>
+          </div>
+          <div class="dl-group">
+            <h3>🪟 Windows</h3>
+            <a class="btn" href="https://github.com/janralf-lgtm/hpd20-kit-editor/releases/download/v0.1.1/TriggerMap_0.1.1_x64-setup.exe">Installer (.exe)</a>
+            <a class="btn" href="https://github.com/janralf-lgtm/hpd20-kit-editor/releases/download/v0.1.1/TriggerMap_0.1.1_x64_en-US.msi">MSI package</a>
+          </div>
+        </div>
+        <p class="note" style="margin-top:12px">All downloads &amp; release notes: <a href="https://github.com/janralf-lgtm/hpd20-kit-editor/releases/latest">GitHub Releases</a>.</p>
+      </section>
+
+      <section>
+        <h2>Features</h2>
+        <ul class="features">
+          <li>Reorder, copy &amp; rename kits (drag &amp; drop)</li>
+          <li>Device-faithful pad surface</li>
+          <li>Per-pad instrument, volume, pan, pitch</li>
+          <li>Layer A/B with layer mode &amp; fade point</li>
+          <li>Scale tool for melodic pads</li>
+          <li>Export/import single kits (.kit)</li>
+          <li>Printable kit &amp; pad overview</li>
+          <li>4 languages: DE · EN · ES · FR</li>
+        </ul>
+        <img class="device" src="./hpd20-device.png" alt="HPD-20 pad surface" />
+      </section>
+
+      <section>
+        <h2>How it works</h2>
+        <p>
+          On the HPD-20, go to <code>SYS → USB-Memory</code> and save a backup to a
+          USB stick (<code>Roland/HPD-20/Backup/BKUP-XXX.HS0</code>). Open that file
+          in TriggerMap, make your changes, save, copy it back to the stick and load
+          it on the device. Always keep a copy of the original.
+        </p>
+      </section>
+
+      <section>
+        <h2>☕ Support</h2>
+        <p>
+          TriggerMap is free and open source. If it's useful to you, consider
+          <a href="https://ko-fi.com/triggermap">buying a coffee on Ko-fi</a> — one-time,
+          you choose the amount. Supporters get a code that hides the in-app reminder.
+        </p>
+      </section>
+    </div>
+
+    <footer>
+      <div class="wrap">
+        <p>
+          Open source (GPL-3.0) ·
+          <a href="https://github.com/janralf-lgtm/hpd20-kit-editor">github.com/janralf-lgtm/hpd20-kit-editor</a>
+        </p>
+        <p>
+          Unofficial project — not affiliated with or endorsed by Roland.
+          “Roland”, “HandSonic” and “HPD-20” are trademarks of their respective owners.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
