@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { INSTRUMENTS } from "../data/instruments";
+import { useT } from "../i18n";
 
 const ALL = Object.entries(INSTRUMENTS).map(([k, v]) => ({
   num: Number(k),
@@ -15,6 +16,7 @@ export function InstrumentPicker({
   onChange: (num: number) => void;
   onClose: () => void;
 }) {
+  const { t } = useT();
   const [q, setQ] = useState("");
   const results = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -31,7 +33,7 @@ export function InstrumentPicker({
         <div className="picker-head">
           <input
             autoFocus
-            placeholder="Instrument suchen… (Name oder Nummer)"
+            placeholder={t("pick.search")}
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />
@@ -51,7 +53,7 @@ export function InstrumentPicker({
               {i.name}
             </li>
           ))}
-          {results.length === 0 && <li className="muted">Keine Treffer</li>}
+          {results.length === 0 && <li className="muted">{t("pick.none")}</li>}
         </ul>
       </div>
     </div>

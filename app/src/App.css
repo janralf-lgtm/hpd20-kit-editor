@@ -56,6 +56,12 @@ input[type="text"], input:not([type]), .kit-filter, .kit-name-input, .kit-sub-in
 }
 .topbar .spacer { flex: 1; }
 .file-name { color: var(--muted); font-size: 13px; }
+.lang-switch {
+  background: var(--panel2); color: var(--text);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 6px 8px; font-size: 13px; cursor: pointer;
+}
+.landing-lang { display: flex; justify-content: flex-end; margin-bottom: 8px; }
 .chk { font-size: 12px; padding: 2px 8px; border-radius: 20px; }
 .chk.ok { background: rgba(54,194,117,.15); color: var(--ok); }
 .chk.bad { background: rgba(255,85,85,.15); color: var(--bad); }

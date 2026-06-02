@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Backup } from "../codec/backup";
 import { PAD_NAMES, LAYER_MODES, fadePointActive } from "../codec/layout";
 import { InstrumentPicker } from "./InstrumentPicker";
+import { useT } from "../i18n";
 
 export function PadEditor({
   backup,
@@ -14,6 +15,7 @@ export function PadEditor({
   padIndex: number;
   onEdit: () => void;
 }) {
+  const { t } = useT();
   const [picking, setPicking] = useState(false);
   const [layer, setLayer] = useState<0 | 1>(0);
   const pad = backup.getPad(kit, padIndex);
@@ -21,17 +23,17 @@ export function PadEditor({
   const mode = pad.getLayerMode();
   const bActive = mode !== 0; // OFF => B unused
   const panLabel = (v: number) =>
-    v === 0 ? "Mitte" : v < 0 ? `L${-v}` : `R${v}`;
+    v === 0 ? t("ed.panCenter") : v < 0 ? `L${-v}` : `R${v}`;
 
   return (
     <div className="pad-editor">
       <h3>
-        Pad <span className="badge">{PAD_NAMES[padIndex]}</span>
+        {t("ed.pad")} <span className="badge">{PAD_NAMES[padIndex]}</span>
       </h3>
 
       {/* Layer mode for the whole pad */}
       <label className="field">
-        <span>Layer-Modus (Instrument B)</span>
+        <span>{t("ed.layerMode")}</span>
         <select
           value={mode}
           onChange={(e) => {
@@ -49,7 +51,7 @@ export function PadEditor({
 
       {fadePointActive(mode) && (
         <label className="field">
-          <span>Fade Point: {pad.getFadePoint()}</span>
+          <span>{t("ed.fadePoint")}: {pad.getFadePoint()}</span>
           <input
             type="range"
             min={0}
@@ -69,26 +71,26 @@ export function PadEditor({
           className={layer === 0 ? "tab-on" : ""}
           onClick={() => setLayer(0)}
         >
-          Instrument A
+          {t("ed.instrumentA")}
         </button>
         <button
           className={`${layer === 1 ? "tab-on" : ""} ${!bActive ? "tab-dim" : ""}`}
           onClick={() => setLayer(1)}
-          title={bActive ? "" : "Layer-Modus ist OFF – B wird nicht gespielt"}
+          title={bActive ? "" : t("ed.bOffTitle")}
         >
-          Instrument B{!bActive ? " (aus)" : ""}
+          {t("ed.instrumentB")}{!bActive ? t("ed.bOff") : ""}
         </button>
       </div>
 
       <label className="field">
-        <span>Instrument {layer === 0 ? "A" : "B"}</span>
+        <span>{t("ed.instrument", { layer: layer === 0 ? "A" : "B" })}</span>
         <button className="inst-btn" onClick={() => setPicking(true)}>
           <b>{pad.getPatch(layer) + 1}</b> {pad.getInstrumentName(layer)}
         </button>
       </label>
 
       <label className="field">
-        <span>Volume: {pad.getVolume(layer)}</span>
+        <span>{t("ed.volume", { n: pad.getVolume(layer) })}</span>
         <input
           type="range"
           min={0}
@@ -102,7 +104,7 @@ export function PadEditor({
       </label>
 
       <label className="field">
-        <span>Pan: {panLabel(pad.getPan(layer))}</span>
+        <span>{t("ed.pan", { v: panLabel(pad.getPan(layer)) })}</span>
         <input
           type="range"
           min={-64}
@@ -116,7 +118,7 @@ export function PadEditor({
       </label>
 
       <label className="field">
-        <span>Pitch (Cents): {pad.getPitch(layer)}</span>
+        <span>{t("ed.pitch", { n: pad.getPitch(layer) })}</span>
         <input
           type="range"
           min={-2400}
@@ -132,13 +134,13 @@ export function PadEditor({
 
       <div className="readouts">
         <div>
-          MIDI-Note <b>{pad.getMidiNote()}</b>
+          {t("ed.midiNote")} <b>{pad.getMidiNote()}</b>
         </div>
         <div>
-          Muffling <b>{pad.getMuffling(layer)}</b>
+          {t("ed.muffling")} <b>{pad.getMuffling(layer)}</b>
         </div>
         <div>
-          Sweep <b>{pad.getSweep(layer)}</b>
+          {t("ed.sweep")} <b>{pad.getSweep(layer)}</b>
         </div>
       </div>
 

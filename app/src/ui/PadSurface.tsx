@@ -2,6 +2,7 @@ import type { Backup } from "../codec/backup";
 import { PAD_NAMES } from "../codec/layout";
 import { SURFACE_PADS, EXTERNAL_PADS, VIEW_W, VIEW_H } from "./padLayout";
 import deviceImg from "../assets/hpd20-device.png";
+import { useT } from "../i18n";
 
 // Split a long instrument name across up to two <tspan> lines for readability.
 function nameLines(name: string): string[] {
@@ -23,6 +24,7 @@ export function PadSurface({
   selectedPad: number;
   onSelect: (padIndex: number) => void;
 }) {
+  const { t } = useT();
   const labelFor = (padIndex: number) => {
     const pad = backup.getPad(kit, padIndex);
     const empty = pad.isEmpty(0);
@@ -41,7 +43,7 @@ export function PadSurface({
         className="device-svg"
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
         role="group"
-        aria-label="HPD-20 Pad-Fläche"
+        aria-label={t("pad.surface")}
       >
         <image href={deviceImg} x={0} y={0} width={VIEW_W} height={VIEW_H} />
 
@@ -93,7 +95,7 @@ export function PadSurface({
       </svg>
 
       <div className="externals">
-        <div className="externals-title">Externe Trigger / Sensor</div>
+        <div className="externals-title">{t("pad.externals")}</div>
         <div className="externals-row">
           {EXTERNAL_PADS.map((e) => {
             const pad = backup.getPad(kit, e.index);
@@ -105,9 +107,9 @@ export function PadSurface({
               >
                 <span className="pad-id">{e.name}</span>
                 <span className="pad-inst">
-                  {pad.isEmpty(0) ? "(leer)" : pad.getInstrumentName(0)}
+                  {pad.isEmpty(0) ? t("pad.empty") : pad.getInstrumentName(0)}
                 </span>
-                <span className="pad-vol">Vol {pad.getVolume(0)}</span>
+                <span className="pad-vol">{t("pad.vol", { n: pad.getVolume(0) })}</span>
               </button>
             );
           })}

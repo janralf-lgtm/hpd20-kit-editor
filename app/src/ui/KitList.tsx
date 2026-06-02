@@ -15,6 +15,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { useMemo, useState } from "react";
 import type { Backup } from "../codec/backup";
+import { useT } from "../i18n";
 
 interface Row {
   id: string; // stable id following the kit during reorder
@@ -36,6 +37,7 @@ function KitRow({
   selected: boolean;
   onSelect: () => void;
 }) {
+  const { t } = useT();
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: row.id });
   return (
@@ -45,12 +47,12 @@ function KitRow({
       className={`kit-row ${selected ? "sel" : ""} ${isDragging ? "drag" : ""}`}
       onClick={onSelect}
     >
-      <span className="grip" {...attributes} {...listeners} title="Ziehen zum Umsortieren">
+      <span className="grip" {...attributes} {...listeners} title={t("kits.drag")}>
         ⠿
       </span>
       <span className="kit-num">{slot + 1}</span>
       <span className="kit-name">
-        {name || <i className="muted">(leer)</i>}
+        {name || <i className="muted">{t("kits.empty")}</i>}
         {sub ? <small>{sub}</small> : null}
       </span>
     </li>
@@ -70,6 +72,7 @@ export function KitList({
   onSelectKit: (i: number) => void;
   onEdit: () => void;
 }) {
+  const { t } = useT();
   // Stable ids: order array maps display position -> id. We map id->slot by index.
   const [order, setOrder] = useState<Row[]>(() =>
     Array.from({ length: backup.kitCount() }, (_, i) => ({
@@ -117,7 +120,7 @@ export function KitList({
     <div className="kit-list">
       <input
         className="kit-filter"
-        placeholder="Kits filtern…"
+        placeholder={t("kits.filter")}
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
       />

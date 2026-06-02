@@ -8,6 +8,7 @@ import {
   noteNumber,
 } from "../data/scales";
 import { computeScale, type ScaleOptions } from "../codec/scaleApply";
+import { useT } from "../i18n";
 
 const MODE_NAMES = Object.keys(MODES); // IONIAN..LOCRIAN
 const SEVEN_NOTE = new Set(["major", "minor", "harmonic minor"]);
@@ -21,6 +22,7 @@ export function ScaleDialog({
   onApply: (opts: ScaleOptions) => void;
   onClose: () => void;
 }) {
+  const { t } = useT();
   const [instrumentName, setInstrument] = useState(Object.keys(MELODIC_SETS)[0]);
   const [scaleName, setScale] = useState("major");
   const [mode, setMode] = useState(0);
@@ -51,13 +53,13 @@ export function ScaleDialog({
     <div className="picker-overlay" onClick={onClose}>
       <div className="scale-dialog" onClick={(e) => e.stopPropagation()}>
         <div className="picker-head">
-          <strong>Tonleiter auf Kit {kitIndex + 1} anwenden</strong>
+          <strong>{t("scale.title", { n: kitIndex + 1 })}</strong>
           <button onClick={onClose}>✕</button>
         </div>
 
         <div className="scale-grid">
           <label>
-            <span>Instrument</span>
+            <span>{t("scale.instrument")}</span>
             <select
               value={instrumentName}
               onChange={(e) => setInstrument(e.target.value)}
@@ -69,7 +71,7 @@ export function ScaleDialog({
           </label>
 
           <label>
-            <span>Tonleiter</span>
+            <span>{t("scale.scale")}</span>
             <select value={scaleName} onChange={(e) => setScale(e.target.value)}>
               {Object.keys(SCALE_PATTERNS).map((k) => (
                 <option key={k}>{k}</option>
@@ -78,7 +80,7 @@ export function ScaleDialog({
           </label>
 
           <label>
-            <span>Modus {modeUsable ? "" : "(nur 7-Ton)"}</span>
+            <span>{t("scale.mode")} {modeUsable ? "" : t("scale.modeOnly7")}</span>
             <select
               value={mode}
               disabled={!modeUsable}
@@ -93,7 +95,7 @@ export function ScaleDialog({
           </label>
 
           <label>
-            <span>Grundton</span>
+            <span>{t("scale.root")}</span>
             <div className="root-row">
               <select
                 value={pitchClass}
@@ -119,7 +121,7 @@ export function ScaleDialog({
           </label>
 
           <label className="span2">
-            <span>Pad-Reihenfolge</span>
+            <span>{t("scale.padOrder")}</span>
             <select
               value={patternName}
               onChange={(e) => setPattern(e.target.value)}
@@ -133,7 +135,7 @@ export function ScaleDialog({
 
         <div className="scale-preview">
           <div className="scale-preview-head">
-            Vorschau ({preview.length} Pads)
+            {t("scale.preview", { n: preview.length })}
           </div>
           <ul>
             {preview.map((s, i) => (
@@ -147,7 +149,7 @@ export function ScaleDialog({
         </div>
 
         <div className="scale-actions">
-          <button onClick={onClose}>Abbrechen</button>
+          <button onClick={onClose}>{t("scale.cancel")}</button>
           <button
             className="primary"
             onClick={() => {
@@ -155,7 +157,7 @@ export function ScaleDialog({
               onClose();
             }}
           >
-            Anwenden
+            {t("scale.apply")}
           </button>
         </div>
       </div>

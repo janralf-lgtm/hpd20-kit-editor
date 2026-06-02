@@ -5,8 +5,10 @@ import { PadSurface } from "./ui/PadSurface";
 import { PadEditor } from "./ui/PadEditor";
 import { PrintView } from "./ui/PrintView";
 import { ScaleDialog } from "./ui/ScaleDialog";
+import { LanguageSwitcher } from "./ui/LanguageSwitcher";
 import { applyScaleToKit } from "./codec/scaleApply";
 import { openBinaryFile, saveBinaryFile } from "./platform/files";
+import { useT } from "./i18n";
 import "./App.css";
 
 function sanitize(s: string) {
@@ -14,6 +16,7 @@ function sanitize(s: string) {
 }
 
 export default function App() {
+  const { t, tc } = useT();
   const [backup, setBackup] = useState<Backup | null>(null);
   const [fileName, setFileName] = useState("");
   const [selectedKit, setSelectedKit] = useState(0);
@@ -30,7 +33,7 @@ export default function App() {
   }, []);
 
   const openFile = async () => {
-    const f = await openBinaryFile(["HS0"], "HPD-20 Backup öffnen");
+    const f = await openBinaryFile(["HS0"], t("dlg.openBackup"));
     if (!f) return;
     try {
       const bk = Backup.parse(f.bytes);
@@ -42,7 +45,7 @@ export default function App() {
       setChecksum(bk.verifyChecksum().valid);
       setRev((r) => r + 1);
     } catch (e) {
-      alert(`Konnte Datei nicht laden:\n${(e as Error).message}`);
+      alert(t("err.load", { msg: (e as Error).message }));
     }
   };
 
@@ -52,7 +55,7 @@ export default function App() {
       backup.toBytes(),
       "BKUP-EDIT.HS0",
       ["HS0"],
-      "Backup speichern",
+      t("dlg.saveBackup"),
     );
     if (ok) setDirty(false);
   };
@@ -62,12 +65,12 @@ export default function App() {
     const kit = backup.getKit(selectedKit);
     const sub = kit.getSubName().trim();
     const fn = sanitize(kit.getName() + (sub ? ` (${sub})` : "")) + ".kit";
-    await saveBinaryFile(backup.exportKit(selectedKit), fn, ["kit"], "Kit exportieren");
+    await saveBinaryFile(backup.exportKit(selectedKit), fn, ["kit"], t("dlg.exportKit"));
   };
 
   const importKit = async () => {
     if (!backup) return;
-    const f = await openBinaryFile(["kit"], "Kit importieren");
+    const f = await openBinaryFile(["kit"], t("dlg.importKit"));
     if (!f) return;
     try {
       backup.importKit(selectedKit, f.bytes);
@@ -81,20 +84,15 @@ export default function App() {
     return (
       <div className="landing">
         <div className="landing-card">
+          <div className="landing-lang">
+            <LanguageSwitcher />
+          </div>
           <h1>TriggerMap</h1>
-          <p>
-            Lade eine Backup-Datei deines Roland HPD-20 (
-            <code>Roland/HPD-20/Backup/BKUP-XXX.HS0</code> vom USB-Stick).
-            Alles läuft lokal – nichts wird hochgeladen.
-          </p>
+          <p>{tc("landing.intro")}</p>
           <button className="primary" onClick={openFile}>
-            Backup-Datei öffnen…
+            {t("landing.open")}
           </button>
-          <p className="disclaimer">
-            Inoffizielles Projekt – keine Verbindung zu bzw. Unterstützung durch
-            Roland. „Roland", „HandSonic" und „HPD-20" sind Marken ihrer
-            jeweiligen Inhaber.
-          </p>
+          <p className="disclaimer">{t("disclaimer")}</p>
         </div>
       </div>
     );
@@ -109,32 +107,29 @@ export default function App() {
         <span className="file-name">{fileName}</span>
         {checksum !== null && (
           <span className={`chk ${checksum ? "ok" : "bad"}`}>
-            {checksum ? "Prüfsumme OK" : "Prüfsumme ungültig"}
+            {checksum ? t("top.checksumOk") : t("top.checksumBad")}
           </span>
         )}
         <span className="spacer" />
+        <LanguageSwitcher />
         <button onClick={() => setPrinting((p) => !p)}>
-          {printing ? "Editor" : "Übersicht / Drucken"}
+          {printing ? t("top.editor") : t("top.print")}
         </button>
         <button className="primary" onClick={save}>
-          Speichern{dirty ? " *" : ""}
+          {t("top.save")}
+          {dirty ? " *" : ""}
         </button>
-        <button onClick={openFile}>Andere Datei…</button>
+        <button onClick={openFile}>{t("top.otherFile")}</button>
       </header>
 
-      <div className="safety">
-        ⚠️ Originaldatei aufheben – als Kopie speichern (Vorschlag{" "}
-        <code>BKUP-EDIT.HS0</code>). Zum Zurückspielen aufs Gerät in den
-        Backup-Ordner des USB-Sticks legen und über{" "}
-        <code>SYS → USB-Memory</code> laden.
-      </div>
+      <div className="safety">{tc("safety")}</div>
 
       {printing ? (
         <PrintView backup={backup} />
       ) : (
         <div className="main">
           <aside className="panel kit-panel">
-            <h2>Kits</h2>
+            <h2>{t("kits.heading")}</h2>
             <KitList
               key={fileName}
               backup={backup}
@@ -150,7 +145,7 @@ export default function App() {
 
           <section className="panel center-panel">
             <div className="kit-head">
-              <span className="kit-index">Kit {selectedKit + 1}</span>
+              <span className="kit-index">{t("kit.index", { n: selectedKit + 1 })}</span>
               <input
                 className="kit-name-input"
                 value={kit.getName()}
@@ -164,7 +159,7 @@ export default function App() {
                 className="kit-sub-input"
                 value={kit.getSubName()}
                 maxLength={16}
-                placeholder="Untertitel"
+                placeholder={t("kit.subtitle")}
                 onChange={(e) => {
                   kit.setSubName(e.target.value);
                   bump();
@@ -172,9 +167,9 @@ export default function App() {
               />
             </div>
             <div className="kit-actions">
-              <button onClick={exportKit}>Kit exportieren (.kit)</button>
-              <button onClick={importKit}>Kit importieren…</button>
-              <button onClick={() => setScaleOpen(true)}>🎵 Tonleiter…</button>
+              <button onClick={exportKit}>{t("kit.export")}</button>
+              <button onClick={importKit}>{t("kit.import")}</button>
+              <button onClick={() => setScaleOpen(true)}>{t("kit.scale")}</button>
             </div>
             <PadSurface
               backup={backup}
