@@ -8,6 +8,14 @@ USB-Stick schreibt. Dieser Editor liest, verändert und schreibt diese Datei
 
 Verfügbar als Desktop-App (macOS/Windows, Tauri) und als lokale Web-App.
 
+**[🌐 Webseite & Download](https://janralf-lgtm.github.io/hpd20-kit-editor/)** ·
+**[⬇️ Releases](https://github.com/janralf-lgtm/hpd20-kit-editor/releases/latest)** ·
+**[☕ Auf Ko-fi unterstützen](https://ko-fi.com/triggermap)**
+
+> Kostenlos & quelloffen. Wenn dir TriggerMap hilft, freue ich mich über einen
+> Kaffee auf Ko-fi — einmalig, Betrag frei wählbar. Unterstützer bekommen einen
+> Code, der den Spenden-Hinweis in der App ausblendet (alle Funktionen sind ohnehin frei).
+
 ## Funktionen
 
 - Kits umsortieren (Drag & Drop), kopieren, tauschen, umbenennen
