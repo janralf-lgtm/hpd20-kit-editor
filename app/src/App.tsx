@@ -91,23 +91,19 @@ export default function App() {
         <div className="landing-lang">
           <LanguageSwitcher />
         </div>
-        <div className="landing-inner">
-          <div className="hero-3d">
-            <Suspense fallback={<div className="hero-loading">3D…</div>}>
-              <HeroScene />
-            </Suspense>
-          </div>
-          <div className="landing-card">
-            <h1>TriggerMap</h1>
-            <p>{tc("landing.intro")}</p>
-            <button className="primary" onClick={openFile}>
-              {t("landing.open")}
-            </button>
-            {!supporter && (
-              <SupporterBar onRedeemed={() => setSupporter(true)} />
-            )}
-            <p className="disclaimer">{t("disclaimer")}</p>
-          </div>
+        <div className="hero-bg">
+          <Suspense fallback={<div className="hero-loading">3D…</div>}>
+            <HeroScene />
+          </Suspense>
+        </div>
+        <div className="landing-card glass">
+          <h1>TriggerMap</h1>
+          <p>{tc("landing.intro")}</p>
+          <button className="primary" onClick={openFile}>
+            {t("landing.open")}
+          </button>
+          {!supporter && <SupporterBar onRedeemed={() => setSupporter(true)} />}
+          <p className="disclaimer">{t("disclaimer")}</p>
         </div>
       </div>
     );

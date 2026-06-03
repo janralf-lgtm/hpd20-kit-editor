@@ -43,17 +43,30 @@ input[type="text"], input:not([type]), .kit-filter, .kit-name-input, .kit-sub-in
 
 /* ---------- Landing ---------- */
 .landing {
-  min-height: 100vh; display: grid; place-items: center; padding: 24px; position: relative;
-  background: radial-gradient(1100px 560px at 50% -5%, #1d222c, var(--bg) 70%);
+  min-height: 100vh; display: grid; place-items: center; position: relative; overflow: hidden;
+  background: radial-gradient(1100px 620px at 50% 0%, #1d222c, var(--bg) 72%);
 }
-.landing-lang { position: absolute; top: 16px; right: 16px; }
-.landing-inner { display: flex; flex-direction: column; align-items: center; animation: heroIn .7s ease both; }
-.hero-3d { width: min(560px, 92vw); height: 320px; }
+.landing-lang { position: absolute; top: 16px; right: 16px; z-index: 2; }
+/* 3D model fills the whole screen as the background layer */
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-canvas { width: 100% !important; height: 100% !important; }
-.hero-loading { display: grid; place-items: center; height: 100%; color: var(--muted); font-size: 13px; }
+.hero-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
+/* Menu floats on top as a compact, translucent glass card */
+.landing-card {
+  position: relative; z-index: 1; max-width: 440px; padding: 22px 26px; text-align: center;
+  border-radius: 18px; animation: heroIn .7s ease both;
+}
+.landing-card.glass {
+  background: rgba(18, 20, 26, .55);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  border: 1px solid rgba(255, 255, 255, .10);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
+}
+.landing-card h1 { margin: 0 0 6px; }
+.landing-card p { font-size: 13.5px; }
 @keyframes heroIn { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .landing-inner { animation: none; } }
-.landing-card { max-width: 520px; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 28px 32px; margin-top: -18px; text-align: center; }
+@media (prefers-reduced-motion: reduce) { .landing-card { animation: none; } }
 .landing-card h1 { margin-top: 0; }
 .landing-card code { background: var(--panel2); padding: 1px 5px; border-radius: 4px; }
 .disclaimer { font-size: 11px; color: var(--muted); margin: 18px 0 0; line-height: 1.4; }
