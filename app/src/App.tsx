@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, lazy, Suspense } from "react";
 import { Backup } from "./codec/backup";
 import { KitList } from "./ui/KitList";
 import { PadSurface } from "./ui/PadSurface";
@@ -12,6 +12,8 @@ import { openBinaryFile, saveBinaryFile } from "./platform/files";
 import { isSupporter } from "./supporter";
 import { useT } from "./i18n";
 import "./App.css";
+
+const HeroScene = lazy(() => import("./ui/HeroScene"));
 
 function sanitize(s: string) {
   return s.replace(/[^A-Za-z0-9 !&()_.{}-]/g, "_").trim() || "Kit";
@@ -86,19 +88,26 @@ export default function App() {
   if (!backup) {
     return (
       <div className="landing">
-        <div className="landing-card">
-          <div className="landing-lang">
-            <LanguageSwitcher />
+        <div className="landing-lang">
+          <LanguageSwitcher />
+        </div>
+        <div className="landing-inner">
+          <div className="hero-3d">
+            <Suspense fallback={<div className="hero-loading">3D…</div>}>
+              <HeroScene />
+            </Suspense>
           </div>
-          <h1>TriggerMap</h1>
-          <p>{tc("landing.intro")}</p>
-          <button className="primary" onClick={openFile}>
-            {t("landing.open")}
-          </button>
-          {!supporter && (
-            <SupporterBar onRedeemed={() => setSupporter(true)} />
-          )}
-          <p className="disclaimer">{t("disclaimer")}</p>
+          <div className="landing-card">
+            <h1>TriggerMap</h1>
+            <p>{tc("landing.intro")}</p>
+            <button className="primary" onClick={openFile}>
+              {t("landing.open")}
+            </button>
+            {!supporter && (
+              <SupporterBar onRedeemed={() => setSupporter(true)} />
+            )}
+            <p className="disclaimer">{t("disclaimer")}</p>
+          </div>
         </div>
       </div>
     );

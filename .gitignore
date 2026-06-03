@@ -26,3 +26,6 @@ Roland/
 
 # Private/internal docs (never publish)
 private/
+
+# Roh-3D-Modell (20 MB, optimierte Version liegt in app/src/assets)
+/HPD.glb
