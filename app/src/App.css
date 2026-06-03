@@ -270,3 +270,8 @@ input[type="text"], input:not([type]), .kit-filter, .kit-name-input, .kit-sub-in
   .print-view { padding: 0; }
   .print-kit th, .print-kit td { border-color: #999; }
 }
+
+/* ---------- Error boundary ---------- */
+.app-error { padding: 24px; max-width: 900px; margin: 40px auto; }
+.app-error pre { white-space: pre-wrap; word-break: break-word; background: var(--panel); border: 1px solid var(--line); padding: 12px; border-radius: 8px; color: #ff9a9a; font-size: 12px; }
+.app-error-stack { color: var(--muted) !important; max-height: 320px; overflow: auto; }

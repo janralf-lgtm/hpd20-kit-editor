@@ -1,4 +1,4 @@
-import { useState, useCallback, lazy, Suspense } from "react";
+import { useState, useCallback, useEffect, lazy, Suspense } from "react";
 import { Backup } from "./codec/backup";
 import { KitList } from "./ui/KitList";
 import { PadSurface } from "./ui/PadSurface";
@@ -7,6 +7,7 @@ import { PrintView } from "./ui/PrintView";
 import { ScaleDialog } from "./ui/ScaleDialog";
 import { LanguageSwitcher } from "./ui/LanguageSwitcher";
 import { SupporterBar } from "./ui/SupporterBar";
+import { ErrorBoundary } from "./ui/ErrorBoundary";
 import { applyScaleToKit } from "./codec/scaleApply";
 import { openBinaryFile, saveBinaryFile } from "./platform/files";
 import { isSupporter } from "./supporter";
@@ -57,6 +58,24 @@ export default function App() {
   const bump = useCallback(() => {
     setRev((r) => r + 1);
     setDirty(true);
+  }, []);
+
+  // Dev only: ?dev=1 auto-loads /__dev.HS0 after a delay (so the hero mounts
+  // first, reproducing the hero→editor canvas handoff).
+  useEffect(() => {
+    if (new URLSearchParams(location.search).get("dev") !== "1") return;
+    const id = setTimeout(() => {
+      fetch("/__dev.HS0")
+        .then((r) => r.arrayBuffer())
+        .then((buf) => {
+          const bk = Backup.parse(new Uint8Array(buf));
+          setBackup(bk);
+          setFileName("__dev.HS0");
+          setChecksum(bk.verifyChecksum().valid);
+        })
+        .catch(() => {});
+    }, 2500);
+    return () => clearTimeout(id);
   }, []);
 
   const openFile = async () => {
@@ -227,16 +246,28 @@ export default function App() {
               <button onClick={() => setScaleOpen(true)}>{t("kit.scale")}</button>
             </div>
             {view3d ? (
-              <Suspense
-                fallback={<div className="surface3d-loading">{t("view.loading3d")}</div>}
+              <ErrorBoundary
+                label="pad3d"
+                fallback={
+                  <PadSurface
+                    backup={backup}
+                    kit={selectedKit}
+                    selectedPad={selectedPad}
+                    onSelect={setSelectedPad}
+                  />
+                }
               >
-                <Pad3DSurface
-                  backup={backup}
-                  kit={selectedKit}
-                  selectedPad={selectedPad}
-                  onSelect={setSelectedPad}
-                />
-              </Suspense>
+                <Suspense
+                  fallback={<div className="surface3d-loading">{t("view.loading3d")}</div>}
+                >
+                  <Pad3DSurface
+                    backup={backup}
+                    kit={selectedKit}
+                    selectedPad={selectedPad}
+                    onSelect={setSelectedPad}
+                  />
+                </Suspense>
+              </ErrorBoundary>
             ) : (
               <PadSurface
                 backup={backup}
