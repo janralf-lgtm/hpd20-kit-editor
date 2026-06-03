@@ -103,7 +103,6 @@ export default function App() {
             {t("landing.open")}
           </button>
           {!supporter && <SupporterBar onRedeemed={() => setSupporter(true)} />}
-          <p className="disclaimer">{t("disclaimer")}</p>
         </div>
       </div>
     );
