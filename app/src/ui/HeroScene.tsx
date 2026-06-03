@@ -34,7 +34,7 @@ export default function HeroScene() {
       <Suspense fallback={null}>
         {/* Stage frames + lights the model; environment feeds the glossy/
             transmission materials so they look right. */}
-        <Stage environment="city" intensity={0.5} adjustCamera={0.6} shadows={false}>
+        <Stage environment="city" intensity={0.5} adjustCamera={0.85} shadows={false}>
           <Model />
         </Stage>
       </Suspense>
