@@ -97,6 +97,9 @@ const de: Dict = {
   "print.empty": "–",
 
   "lang.label": "Sprache",
+  "view.to2d": "2D-Ansicht",
+  "view.to3d": "3D-Ansicht",
+  "view.loading3d": "3D wird geladen…",
 
   "support.hint": "TriggerMap ist gratis & quelloffen – unterstütze die Entwicklung.",
   "support.cta": "Unterstützen",
@@ -185,6 +188,9 @@ const en: Dict = {
   "print.empty": "–",
 
   "lang.label": "Language",
+  "view.to2d": "2D view",
+  "view.to3d": "3D view",
+  "view.loading3d": "Loading 3D…",
 
   "support.hint": "TriggerMap is free & open source — support its development.",
   "support.cta": "Support",
@@ -273,6 +279,9 @@ const es: Dict = {
   "print.empty": "–",
 
   "lang.label": "Idioma",
+  "view.to2d": "Vista 2D",
+  "view.to3d": "Vista 3D",
+  "view.loading3d": "Cargando 3D…",
 
   "support.hint": "TriggerMap es gratis y de código abierto — apoya su desarrollo.",
   "support.cta": "Apoyar",
@@ -361,6 +370,9 @@ const fr: Dict = {
   "print.empty": "–",
 
   "lang.label": "Langue",
+  "view.to2d": "Vue 2D",
+  "view.to3d": "Vue 3D",
+  "view.loading3d": "Chargement 3D…",
 
   "support.hint": "TriggerMap est gratuit et open source — soutenez son développement.",
   "support.cta": "Soutenir",

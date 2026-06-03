@@ -13,10 +13,10 @@ export const VIEW_H = 1160;
 // Measured from the artwork's PAD features (M5 ring + cross + surface edge),
 // NOT the silver rim — the playing surface is not concentric with the rim.
 // Pad centre ≈ (646, 700); M5 ring outer ≈ 80; M/S boundary ≈ 285; surface edge ≈ 420.
-const CENTER = { x: 646, y: 700 };
+export const CENTER = { x: 646, y: 700 };
 const R_M5 = 78; // centre circle radius
 const R_INNER = 285; // outer edge of the M1-M4 quarter discs / inner edge of S ring
-const R_OUTER = 420; // outer edge of the S ring (= playing-surface edge)
+export const R_OUTER = 420; // outer edge of the S ring (= playing-surface edge)
 
 function polar(r: number, deg: number): [number, number] {
   const a = (deg * Math.PI) / 180;
