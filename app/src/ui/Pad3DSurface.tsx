@@ -102,7 +102,7 @@ export function Pad3DSurface({
   return (
     <div className="surface-wrap">
       <div className="surface3d">
-        <Canvas camera={{ position: [0, 5.2, 3.4], fov: 35 }} gl={{ antialias: true }}>
+        <Canvas camera={{ position: [0, 6.4, 2.1], fov: 32 }} gl={{ antialias: true }}>
           <Suspense fallback={null}>
             <Environment preset="city" />
             <ambientLight intensity={0.55} />
@@ -114,13 +114,14 @@ export function Pad3DSurface({
               onSelect={onSelect}
             />
           </Suspense>
+          {/* Fixed bird's-eye view — interaction disabled (no rotate/zoom/pan)
+              so the device just looks 3D/plastic without being movable. */}
           <OrbitControls
             makeDefault
+            enableRotate={false}
             enablePan={false}
             enableZoom={false}
-            target={[0, 0, 0.3]}
-            minPolarAngle={Math.PI / 8}
-            maxPolarAngle={Math.PI / 2.2}
+            target={[0, 0, 0.4]}
           />
         </Canvas>
       </div>

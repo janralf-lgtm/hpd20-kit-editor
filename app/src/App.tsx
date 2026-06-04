@@ -179,11 +179,6 @@ export default function App() {
           </span>
         )}
         <LanguageSwitcher />
-        {!printing && (
-          <button onClick={toggleView}>
-            {view3d ? t("view.to2d") : t("view.to3d")}
-          </button>
-        )}
         <button onClick={() => setPrinting((p) => !p)}>
           {printing ? t("top.editor") : t("top.print")}
         </button>
@@ -244,6 +239,9 @@ export default function App() {
               <button onClick={exportKit}>{t("kit.export")}</button>
               <button onClick={importKit}>{t("kit.import")}</button>
               <button onClick={() => setScaleOpen(true)}>{t("kit.scale")}</button>
+              <button className="view-toggle" onClick={toggleView}>
+                {view3d ? t("view.to2d") : t("view.to3d")}
+              </button>
             </div>
             {view3d ? (
               <ErrorBoundary
