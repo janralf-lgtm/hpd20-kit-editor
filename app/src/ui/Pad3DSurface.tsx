@@ -102,11 +102,11 @@ export function Pad3DSurface({
   return (
     <div className="surface-wrap">
       <div className="surface3d">
-        <Canvas camera={{ position: [0, 5.4, 1.85], fov: 30 }} gl={{ antialias: true }}>
+        <Canvas camera={{ position: [0, 6.6, 1.9], fov: 30 }} gl={{ antialias: true }}>
+          <ambientLight intensity={0.55} />
+          <directionalLight position={[3, 6, 4]} intensity={1.1} />
           <Suspense fallback={null}>
             <Environment preset="city" />
-            <ambientLight intensity={0.55} />
-            <directionalLight position={[3, 6, 4]} intensity={1.1} />
             <Pads
               backup={backup}
               kit={kit}
