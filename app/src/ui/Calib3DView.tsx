@@ -15,6 +15,10 @@ const COLORS = [
   "#d36bff", "#ff6f91", "#3ad1c3",
 ];
 
+const BARE =
+  typeof window !== "undefined" &&
+  new URLSearchParams(window.location.search).get("bare") === "1";
+
 function Scene() {
   const { scene } = useGLTF(modelUrl);
   const fit = useMemo(() => fitModel(scene), [scene]);
@@ -24,7 +28,7 @@ function Scene() {
       <group scale={fit.scale} position={fit.centerOffset}>
         <primitive object={scene} />
       </group>
-      <group
+      {!BARE && <group
         position={[SURFACE_CALIB.offsetX, fit.surfaceY, SURFACE_CALIB.offsetZ]}
         rotation={[-Math.PI / 2, 0, SURFACE_CALIB.rotationY]}
       >
@@ -40,7 +44,7 @@ function Scene() {
             />
           </mesh>
         ))}
-      </group>
+      </group>}
     </group>
   );
 }

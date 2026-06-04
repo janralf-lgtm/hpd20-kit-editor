@@ -23,7 +23,7 @@ export const SURFACE_CALIB = {
   target: 4, // normalized footprint size (max of X/Z) in world units
   radiusFactor: 0.85, // playing-surface radius as fraction of footprint half-width
   offsetX: 0, // shift surface centre (right) in world units
-  offsetZ: 0.5, // shift surface centre (front/back) in world units
+  offsetZ: 0.4, // shift surface centre (front/back) in world units
   yLift: -0.16, // offset from the model's top down onto the playing membrane (world units)
   rotationY: 0, // rotate pad ring so the S-arc sits at the panel (-Z)
   flipV: true, // map 2D "front" (large py, M1/M2) to +Z
