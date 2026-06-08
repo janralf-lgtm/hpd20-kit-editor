@@ -46,6 +46,6 @@ jobs:
         with:
           projectPath: app
           tagName: ${{ github.ref_name }}
-          releaseName: "HPD-20 Kit-Editor ${{ github.ref_name }}"
+          releaseName: "TriggerMap ${{ github.ref_name }}"
           releaseDraft: true
           prerelease: false
