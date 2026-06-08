@@ -40,7 +40,7 @@ const de: Dict = {
   "top.otherFile": "Andere Datei…",
 
   safety:
-    "⚠️ Originaldatei aufheben – als Kopie speichern (Vorschlag `BKUP-EDIT.HS0`). Zum Zurückspielen aufs Gerät in den Backup-Ordner des USB-Sticks legen und über `SYS → USB-Memory` laden.",
+    "💾 Originaldatei aufheben – als Kopie speichern (Vorschlag `BKUP-EDIT.HS0`). Zum Zurückspielen aufs Gerät in den Backup-Ordner des USB-Sticks legen und über `SYS → USB-Memory` laden.",
 
   "kits.heading": "Kits",
   "kits.filter": "Kits filtern…",
@@ -131,7 +131,7 @@ const en: Dict = {
   "top.otherFile": "Other file…",
 
   safety:
-    "⚠️ Keep the original file — save as a copy (suggested `BKUP-EDIT.HS0`). To restore it to the device, place it in the backup folder of the USB stick and load it via `SYS → USB-Memory`.",
+    "💾 Keep the original file — save as a copy (suggested `BKUP-EDIT.HS0`). To restore it to the device, place it in the backup folder of the USB stick and load it via `SYS → USB-Memory`.",
 
   "kits.heading": "Kits",
   "kits.filter": "Filter kits…",
@@ -222,7 +222,7 @@ const es: Dict = {
   "top.otherFile": "Otro archivo…",
 
   safety:
-    "⚠️ Conserva el archivo original — guarda una copia (sugerido `BKUP-EDIT.HS0`). Para restaurarlo en el dispositivo, colócalo en la carpeta de copias de la memoria USB y cárgalo mediante `SYS → USB-Memory`.",
+    "💾 Conserva el archivo original — guarda una copia (sugerido `BKUP-EDIT.HS0`). Para restaurarlo en el dispositivo, colócalo en la carpeta de copias de la memoria USB y cárgalo mediante `SYS → USB-Memory`.",
 
   "kits.heading": "Kits",
   "kits.filter": "Filtrar kits…",
@@ -313,7 +313,7 @@ const fr: Dict = {
   "top.otherFile": "Autre fichier…",
 
   safety:
-    "⚠️ Conservez le fichier original — enregistrez une copie (suggéré `BKUP-EDIT.HS0`). Pour le restaurer sur l'appareil, placez-le dans le dossier de sauvegarde de la clé USB et chargez-le via `SYS → USB-Memory`.",
+    "💾 Conservez le fichier original — enregistrez une copie (suggéré `BKUP-EDIT.HS0`). Pour le restaurer sur l'appareil, placez-le dans le dossier de sauvegarde de la clé USB et chargez-le via `SYS → USB-Memory`.",
 
   "kits.heading": "Kits",
   "kits.filter": "Filtrer les kits…",

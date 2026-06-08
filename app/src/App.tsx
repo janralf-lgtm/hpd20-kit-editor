@@ -133,6 +133,7 @@ export default function App() {
             {t("landing.open")}
           </button>
           {!supporter && <SupporterBar onRedeemed={() => setSupporter(true)} />}
+          <p className="landing-safety">{tc("safety")}</p>
         </div>
       </div>
     );
@@ -166,8 +167,6 @@ export default function App() {
         </button>
         <button onClick={openFile}>{t("top.otherFile")}</button>
       </header>
-
-      <div className="safety">{tc("safety")}</div>
 
       {!supporter && <SupporterBar onRedeemed={() => setSupporter(true)} />}
 
@@ -247,6 +246,8 @@ export default function App() {
           onClose={() => setScaleOpen(false)}
         />
       )}
+
+      {!printing && <footer className="safety-footer">{tc("safety")}</footer>}
     </div>
   );
 }
