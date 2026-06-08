@@ -7,16 +7,17 @@
 // Angles use math convention (0deg = east, 90deg = north), converted to the
 // image's y-down coordinates. Tune CENTER / radii here to match the artwork.
 
-export const VIEW_W = 1300;
-export const VIEW_H = 1160;
+// Backdrop = top-down render of the 3D model (src/assets/hpd20-device.png),
+// cropped to the device. Coordinate space matches that PNG 1:1.
+export const VIEW_W = 1016;
+export const VIEW_H = 1329;
 
-// Measured from the artwork's PAD features (M5 ring + cross + surface edge),
-// NOT the silver rim — the playing surface is not concentric with the rim.
-// Pad centre ≈ (646, 700); M5 ring outer ≈ 80; M/S boundary ≈ 285; surface edge ≈ 420.
-export const CENTER = { x: 646, y: 700 };
-const R_M5 = 78; // centre circle radius
-const R_INNER = 285; // outer edge of the M1-M4 quarter discs / inner edge of S ring
-export const R_OUTER = 420; // outer edge of the S ring (= playing-surface edge)
+// Measured from the rendered model's playing surface (cross + M5 ring + molded
+// pad edge), tuned via the ?dev=1 overlay until the zones sit on the pads.
+export const CENTER = { x: 508, y: 836 };
+const R_M5 = 65; // centre circle radius
+const R_INNER = 274; // outer edge of the M1-M4 quarter discs / inner edge of S ring
+export const R_OUTER = 392; // outer edge of the S ring (= playing-surface edge)
 
 function polar(r: number, deg: number): [number, number] {
   const a = (deg * Math.PI) / 180;

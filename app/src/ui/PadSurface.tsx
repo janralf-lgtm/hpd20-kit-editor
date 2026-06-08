@@ -36,6 +36,9 @@ export function PadSurface({
   };
 
   const trunc = (s: string, n = 16) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
+  const grid =
+    typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).get("grid") === "1";
 
   return (
     <div className="surface-wrap">
@@ -68,9 +71,19 @@ export function PadSurface({
               onClick={() => onSelect(p.index)}
             >
               {p.shape === "polygon" ? (
-                <polygon className={cls} points={p.points} />
+                <polygon
+                  className={cls}
+                  points={p.points}
+                  style={grid ? { stroke: "#ff2d2d", strokeWidth: 3, fill: "none" } : undefined}
+                />
               ) : (
-                <circle className={cls} cx={p.cx} cy={p.cy} r={p.r} />
+                <circle
+                  className={cls}
+                  cx={p.cx}
+                  cy={p.cy}
+                  r={p.r}
+                  style={grid ? { stroke: "#ff2d2d", strokeWidth: 3, fill: "none" } : undefined}
+                />
               )}
               <text
                 className={`zone-label ${isS ? "zone-label-s" : ""} ${empty ? "zone-empty" : ""}`}

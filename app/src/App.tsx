@@ -7,7 +7,6 @@ import { PrintView } from "./ui/PrintView";
 import { ScaleDialog } from "./ui/ScaleDialog";
 import { LanguageSwitcher } from "./ui/LanguageSwitcher";
 import { SupporterBar } from "./ui/SupporterBar";
-import { ErrorBoundary } from "./ui/ErrorBoundary";
 import { applyScaleToKit } from "./codec/scaleApply";
 import { openBinaryFile, saveBinaryFile } from "./platform/files";
 import { isSupporter } from "./supporter";
@@ -16,9 +15,6 @@ import "./App.css";
 
 const HeroScene = lazy(() => import("./ui/HeroScene"));
 const Calib3DView = lazy(() => import("./ui/Calib3DView"));
-const Pad3DSurface = lazy(() =>
-  import("./ui/Pad3DSurface").then((m) => ({ default: m.Pad3DSurface })),
-);
 
 function sanitize(s: string) {
   return s.replace(/[^A-Za-z0-9 !&()_.{}-]/g, "_").trim() || "Kit";
@@ -36,24 +32,6 @@ export default function App() {
   const [checksum, setChecksum] = useState<boolean | null>(null);
   const [scaleOpen, setScaleOpen] = useState(false);
   const [supporter, setSupporter] = useState(isSupporter());
-  const [view3d, setView3d] = useState(() => {
-    try {
-      return localStorage.getItem("triggermap-view") !== "2d";
-    } catch {
-      return true;
-    }
-  });
-  const toggleView = () => {
-    setView3d((v) => {
-      const nv = !v;
-      try {
-        localStorage.setItem("triggermap-view", nv ? "3d" : "2d");
-      } catch {
-        /* ignore */
-      }
-      return nv;
-    });
-  };
 
   const bump = useCallback(() => {
     setRev((r) => r + 1);
@@ -239,41 +217,13 @@ export default function App() {
               <button onClick={exportKit}>{t("kit.export")}</button>
               <button onClick={importKit}>{t("kit.import")}</button>
               <button onClick={() => setScaleOpen(true)}>{t("kit.scale")}</button>
-              <button className="view-toggle" onClick={toggleView}>
-                {view3d ? t("view.to2d") : t("view.to3d")}
-              </button>
             </div>
-            {view3d ? (
-              <ErrorBoundary
-                label="pad3d"
-                fallback={
-                  <PadSurface
-                    backup={backup}
-                    kit={selectedKit}
-                    selectedPad={selectedPad}
-                    onSelect={setSelectedPad}
-                  />
-                }
-              >
-                <Suspense
-                  fallback={<div className="surface3d-loading">{t("view.loading3d")}</div>}
-                >
-                  <Pad3DSurface
-                    backup={backup}
-                    kit={selectedKit}
-                    selectedPad={selectedPad}
-                    onSelect={setSelectedPad}
-                  />
-                </Suspense>
-              </ErrorBoundary>
-            ) : (
-              <PadSurface
-                backup={backup}
-                kit={selectedKit}
-                selectedPad={selectedPad}
-                onSelect={setSelectedPad}
-              />
-            )}
+            <PadSurface
+              backup={backup}
+              kit={selectedKit}
+              selectedPad={selectedPad}
+              onSelect={setSelectedPad}
+            />
           </section>
 
           <aside className="panel edit-panel">
