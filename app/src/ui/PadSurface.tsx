@@ -186,8 +186,9 @@ export function PadSurface({
 
         {/* Moulded pad grooves (same geometry as the zones) */}
         <g className="grooves" stroke="#474a52" strokeWidth={4} fill="none" strokeLinecap="round">
-          <line {...line(GROOVES.crossH)} />
-          <line {...line(GROOVES.crossV)} />
+          {GROOVES.crossArms.map((a, i) => (
+            <line key={`c${i}`} {...line(a)} />
+          ))}
           <path d={innerArcPath()} />
           {GROOVES.sDividers.map((d, i) => (
             <line key={i} {...line(d)} />

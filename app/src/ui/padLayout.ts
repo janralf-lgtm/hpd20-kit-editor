@@ -85,9 +85,11 @@ export const SURFACE_PADS: SurfacePad[] = [
 
 // Groove paths used to "mould" the pad lines onto the drawn surface.
 export const GROOVES = {
-  // Cross: horizontal full chord + vertical full chord through the centre.
-  crossH: [polar(R_OUTER, 180), polar(R_OUTER, 0)] as [number, number][],
-  crossV: [polar(R_OUTER, 90), polar(R_OUTER, 270)] as [number, number][],
+  // Cross: 4 radial arms that START at the centre circle (R_M5) and run out to
+  // the surface edge — so the M5 circle stays clean (no lines through it).
+  crossArms: [0, 90, 180, 270].map(
+    (d) => [polar(R_M5, d), polar(R_OUTER, d)] as [number, number][],
+  ),
   // Radial dividers of the S ring (9 lines at 0,22.5,…180°), R_INNER→R_OUTER.
   sDividers: Array.from({ length: 9 }, (_, i) => {
     const d = i * 22.5;
