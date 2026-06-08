@@ -1,25 +1,22 @@
-// Geometry of the HPD-20 playing surface, expressed in the coordinate system of
-// the device artwork (src/assets/hpd20-device.png, 1300 x 1160). Each surface pad
-// is rendered as its real shape so the clickable zones line up with the graphic:
-//   M1/M2  = large bottom quarters      M3/M4 = upper inner quarters
-//   M5     = centre circle              S1-S4 = outer ring arc on the LEFT
-//   S5-S8  = outer ring arc on the RIGHT (S4/S5 meet at the top)
-// Angles use math convention (0deg = east, 90deg = north), converted to the
-// image's y-down coordinates. Tune CENTER / radii here to match the artwork.
+// Geometry of the HPD-20 playing surface, drawn as a clean parametric SVG.
+// CRITICAL: the device GRAPHIC and the clickable pad ZONES are generated from
+// the SAME constants below, so they are pixel-perfectly aligned by construction
+// (no backdrop image, no calibration). Proportions are taken from a photo of the
+// real device:
+//   M1/M2 = large bottom quarters     M3/M4 = upper inner quarters
+//   M5    = centre circle             S1-S8 = 8 equal outer-ring segments (top 180°)
+// Angles use math convention (0deg = east, 90deg = north) in an y-down space.
 
-// Backdrop = top-down render of the 3D model (src/assets/hpd20-device.png),
-// cropped to the device. Coordinate space matches that PNG 1:1.
-export const VIEW_W = 1016;
-export const VIEW_H = 1329;
+export const VIEW_W = 1000;
+export const VIEW_H = 1200;
 
-// Measured from the rendered model's playing surface (cross + M5 ring + molded
-// pad edge), tuned via the ?dev=1 overlay until the zones sit on the pads.
-export const CENTER = { x: 508, y: 836 };
-const R_M5 = 65; // centre circle radius
-const R_INNER = 274; // outer edge of the M1-M4 quarter discs / inner edge of S ring
-export const R_OUTER = 392; // outer edge of the S ring (= playing-surface edge)
+export const CENTER = { x: 500, y: 720 };
+const R_M5 = 70; // centre circle radius
+const R_INNER = 265; // outer edge of the M1-M4 quarters / inner edge of the S ring
+export const R_OUTER = 400; // outer edge of the S ring (= playing-surface edge)
+export const R_RIM = 442; // outer edge of the silver rim around the surface
 
-function polar(r: number, deg: number): [number, number] {
+export function polar(r: number, deg: number): [number, number] {
   const a = (deg * Math.PI) / 180;
   return [CENTER.x + r * Math.cos(a), CENTER.y - r * Math.sin(a)];
 }
@@ -84,9 +81,68 @@ export const SURFACE_PADS: SurfacePad[] = [
   ...sPads,
 ];
 
-// Trigger / sensor inputs edited via buttons (D-Beam sits on the device top edge).
+// ---- Device-graphic geometry (panel + rim grooves), drawn behind the zones ----
+
+// Groove paths used to "mould" the pad lines onto the drawn surface.
+export const GROOVES = {
+  // Cross: horizontal full chord + vertical full chord through the centre.
+  crossH: [polar(R_OUTER, 180), polar(R_OUTER, 0)] as [number, number][],
+  crossV: [polar(R_OUTER, 90), polar(R_OUTER, 270)] as [number, number][],
+  // Radial dividers of the S ring (9 lines at 0,22.5,…180°), R_INNER→R_OUTER.
+  sDividers: Array.from({ length: 9 }, (_, i) => {
+    const d = i * 22.5;
+    return [polar(R_INNER, d), polar(R_OUTER, d)] as [number, number][];
+  }),
+};
+
+// Inner arc (S-ring inner boundary) as an SVG path across the top 180°.
+export function innerArcPath(): string {
+  const [x1, y1] = polar(R_INNER, 180);
+  const [x2, y2] = polar(R_INNER, 0);
+  return `M ${x1.toFixed(1)} ${y1.toFixed(1)} A ${R_INNER} ${R_INNER} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+}
+
+// Outline of the device body: a circle hugging the drum at the bottom that rises
+// into a rounded-rectangle panel at the top.
+export function bodyPath(): string {
+  const bodyR = R_RIM + 26; // body radius around the drum
+  const sx = CENTER.x - bodyR; // left side x
+  const ex = CENTER.x + bodyR; // right side x
+  const topY = 44;
+  const corner = 54;
+  const [bx0, by0] = [sx, CENTER.y];
+  const [bx1] = [ex, CENTER.y];
+  return [
+    `M ${bx0.toFixed(1)} ${by0.toFixed(1)}`,
+    `L ${sx.toFixed(1)} ${(topY + corner).toFixed(1)}`,
+    `Q ${sx.toFixed(1)} ${topY.toFixed(1)} ${(sx + corner).toFixed(1)} ${topY.toFixed(1)}`,
+    `L ${(ex - corner).toFixed(1)} ${topY.toFixed(1)}`,
+    `Q ${ex.toFixed(1)} ${topY.toFixed(1)} ${ex.toFixed(1)} ${(topY + corner).toFixed(1)}`,
+    `L ${bx1.toFixed(1)} ${CENTER.y.toFixed(1)}`,
+    `A ${bodyR} ${bodyR} 0 0 1 ${bx0.toFixed(1)} ${by0.toFixed(1)}`,
+    "Z",
+  ].join(" ");
+}
+
+// 12 rim bolts evenly spaced around the silver rim.
+export const RIM_BOLTS = Array.from({ length: 12 }, (_, i) =>
+  polar(R_RIM - 16, i * 30 + 15),
+);
+
+// D-Beam emitter sits above the display, near the top of the panel.
+export const DBEAM_ZONE = {
+  index: 13,
+  x: CENTER.x - 120,
+  y: 96,
+  w: 240,
+  h: 40,
+  labelX: CENTER.x,
+  labelY: 116,
+};
+
+// Trigger / sensor inputs edited via buttons below the surface.
+// (D-Beam is drawn on the panel instead — see DBEAM_ZONE.)
 export const EXTERNAL_PADS = [
-  { index: 13, name: "D-Beam" },
   { index: 14, name: "Head" },
   { index: 15, name: "Rim" },
   { index: 16, name: "HH" },

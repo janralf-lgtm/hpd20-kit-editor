@@ -189,9 +189,31 @@ input[type="text"], input:not([type]), .kit-filter, .kit-name-input, .kit-sub-in
 .zone-label-s { font-size: 15px; font-weight: 600; }
 .zone-empty { fill: #9aa3b4; font-weight: 700; opacity: .85; }
 
+.panel-brand { fill: #e8eaef; font-size: 30px; font-weight: 700; font-style: italic; letter-spacing: .5px; }
+.panel-sub { fill: #9aa0ab; font-size: 18px; font-weight: 600; }
+
+.dbeam-zone { cursor: pointer; }
+.dbeam-rect {
+  fill: rgba(120, 140, 170, 0.10);
+  stroke: rgba(150, 170, 200, 0.45);
+  stroke-width: 2;
+  transition: fill .12s ease;
+}
+.dbeam-zone:hover .dbeam-rect { fill: rgba(255, 122, 26, 0.18); }
+.dbeam-rect.sel { fill: rgba(255, 122, 26, 0.34); stroke: var(--accent); }
+.dbeam-label {
+  fill: #cfd6e2;
+  font-size: 18px;
+  font-weight: 600;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.5);
+  stroke-width: 3px;
+}
+
 .externals { width: min(620px, 100%); }
 .externals-title { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
-.externals-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.externals-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .ext-pad {
   display: flex; flex-direction: column; gap: 2px; align-items: flex-start;
   padding: 8px; height: auto;
